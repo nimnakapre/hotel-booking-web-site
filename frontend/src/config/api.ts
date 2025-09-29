@@ -6,11 +6,14 @@ export const API_CONFIG = {
   DEVELOPMENT_URL: "http://localhost:8080/api",
   // Get the appropriate URL based on environment
   getBaseURL: () => {
-    // Check if we're in development mode
-    if (import.meta.env.DEV) {
+    // Check if we're running on localhost (development)
+    if (
+      typeof window !== "undefined" &&
+      window.location.hostname === "localhost"
+    ) {
       return API_CONFIG.DEVELOPMENT_URL;
     }
-    // Use production URL for build
+    // For all other cases (production builds), use production URL
     return API_CONFIG.PRODUCTION_URL;
   },
 };
