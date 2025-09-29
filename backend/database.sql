@@ -77,8 +77,6 @@ CREATE INDEX idx_bookings_room ON bookings (room_id, check_in_date, check_out_da
 
 -- Update Queries
 
--- Add image_name column to existing rooms table
-ALTER TABLE rooms ADD COLUMN image_name VARCHAR(255) NULL AFTER description;
 
 
 -- Insert Queries
