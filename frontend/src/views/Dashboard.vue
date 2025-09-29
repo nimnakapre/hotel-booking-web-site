@@ -30,9 +30,14 @@
               <div class="booking-amount">${{ b.totalAmount }}</div>
             </div>
             <div class="actions">
-              <button @click.stop="cancel(b.id)" class="cancel-btn">
+              <button
+                v-if="b.status !== 'CANCELLED'"
+                @click.stop="cancel(b.id)"
+                class="cancel-btn"
+              >
                 Cancel
               </button>
+              <span v-else class="canceled-status">Canceled</span>
             </div>
           </div>
         </div>
@@ -271,6 +276,48 @@
         </div>
       </div>
     </div>
+
+    <!-- Cancel Confirmation Modal -->
+    <div v-if="showCancelModal" class="modal-overlay" @click="closeCancelModal">
+      <div class="modal-content cancel-confirmation-modal" @click.stop>
+        <div class="modal-header">
+          <h3>Cancel Booking</h3>
+          <button @click="closeCancelModal" class="modal-close">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to cancel this booking?</p>
+          <div class="booking-summary" v-if="bookingToCancel">
+            <div class="summary-item">
+              <span class="label">Room:</span>
+              <span class="value"
+                >Room #{{ bookingToCancel.room.id }} -
+                {{ bookingToCancel.room.roomType }}</span
+              >
+            </div>
+            <div class="summary-item">
+              <span class="label">Dates:</span>
+              <span class="value"
+                >{{ formatDate(bookingToCancel.checkInDate) }} →
+                {{ formatDate(bookingToCancel.checkOutDate) }}</span
+              >
+            </div>
+            <div class="summary-item">
+              <span class="label">Guests:</span>
+              <span class="value">{{ bookingToCancel.numberOfGuests }}</span>
+            </div>
+          </div>
+          <p class="warning-text">This action cannot be undone.</p>
+        </div>
+        <div class="modal-footer">
+          <button @click="closeCancelModal" class="btn-secondary">
+            Keep Booking
+          </button>
+          <button @click="confirmCancel" class="btn-danger">
+            Yes, Cancel Booking
+          </button>
+        </div>
+      </div>
+    </div>
   </section>
 </template>
 
@@ -282,6 +329,8 @@ import { RouterLink } from "vue-router";
 const upcoming = ref<any[]>([]);
 const past = ref<any[]>([]);
 const selectedBooking = ref<any>(null);
+const showCancelModal = ref(false);
+const bookingToCancel = ref<any>(null);
 
 async function load() {
   try {
@@ -308,10 +357,23 @@ async function load() {
   }
 }
 
-async function cancel(id: number) {
+function showCancelConfirmation(booking: any) {
+  bookingToCancel.value = booking;
+  showCancelModal.value = true;
+}
+
+function closeCancelModal() {
+  showCancelModal.value = false;
+  bookingToCancel.value = null;
+}
+
+async function confirmCancel() {
+  if (!bookingToCancel.value) return;
+
   try {
-    await api.put(`/bookings/${id}/cancel`);
+    await api.put(`/bookings/${bookingToCancel.value.id}/cancel`);
     await load();
+    closeCancelModal();
   } catch (error: any) {
     console.error("Error canceling booking:", error);
     if (error.response?.status === 401) {
@@ -324,6 +386,14 @@ async function cancel(id: number) {
       return;
     }
     alert("Failed to cancel booking. Please try again.");
+  }
+}
+
+async function cancel(id: number) {
+  // This function is kept for backward compatibility but now shows confirmation
+  const booking = [...upcoming.value, ...past.value].find((b) => b.id === id);
+  if (booking) {
+    showCancelConfirmation(booking);
   }
 }
 

@@ -19,7 +19,7 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     @Query("SELECT b FROM Booking b LEFT JOIN FETCH b.contactInformation WHERE b.user = :user AND b.checkInDate >= :currentDate ORDER BY b.checkInDate ASC")
     List<Booking> findUpcomingBookingsByUser(@Param("user") User user, @Param("currentDate") LocalDate currentDate);
     
-    @Query("SELECT b FROM Booking b LEFT JOIN FETCH b.contactInformation WHERE b.user = :user AND b.checkOutDate < :currentDate ORDER BY b.checkOutDate DESC")
+    @Query("SELECT b FROM Booking b LEFT JOIN FETCH b.contactInformation WHERE b.user = :user AND b.checkOutDate < :currentDate AND b.status != 'CANCELLED' ORDER BY b.checkOutDate DESC")
     List<Booking> findPastBookingsByUser(@Param("user") User user, @Param("currentDate") LocalDate currentDate);
     
     @Query("SELECT b FROM Booking b WHERE b.room.id = :roomId AND " +

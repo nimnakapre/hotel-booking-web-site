@@ -1400,6 +1400,16 @@ button.danger:hover {
   background-color: #dc2626;
 }
 
+.canceled-status {
+  color: #6b7280;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-sm);
+  background-color: #f3f4f6;
+  border: 1px solid #e5e7eb;
+}
+
 /* Modal Styles */
 .modal-overlay {
   position: fixed;
@@ -1717,6 +1727,49 @@ button.danger:hover {
 .btn-danger:hover {
   background-color: #b91c1c;
   transform: translateY(-1px);
+}
+
+/* Cancel Confirmation Modal */
+.cancel-confirmation-modal {
+  max-width: 500px;
+  width: 90%;
+}
+
+.booking-summary {
+  background-color: var(--accent);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.summary-item:last-child {
+  margin-bottom: 0;
+}
+
+.summary-item .label {
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.summary-item .value {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.warning-text {
+  color: #dc2626;
+  font-weight: 500;
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.9rem;
 }
 
 /* Messages */
