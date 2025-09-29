@@ -318,22 +318,24 @@
               </div>
             </div>
 
-            <div class="detail-section" v-if="selectedRoom">
+            <div class="detail-section" v-if="selectedRooms.length > 0">
               <h5>Room Details</h5>
-              <div class="room-confirmation">
+              <div
+                v-for="(room, index) in selectedRooms"
+                :key="room.id"
+                class="room-confirmation"
+              >
                 <img
-                  v-if="selectedRoom.imageName"
-                  :src="`/room_img/${selectedRoom.imageName}`"
-                  :alt="`${selectedRoom.roomType} room`"
+                  v-if="room.imageName"
+                  :src="`/room_img/${room.imageName}`"
+                  :alt="`${room.roomType} room`"
                   class="confirmation-room-image"
                 />
                 <div class="room-confirmation-details">
-                  <div class="room-name">{{ selectedRoom.roomType }}</div>
-                  <div class="room-number">
-                    Room #{{ selectedRoom.roomNumber }}
-                  </div>
+                  <div class="room-name">{{ room.roomType }}</div>
+                  <div class="room-number">Room #{{ room.roomNumber }}</div>
                   <div class="room-description">
-                    {{ selectedRoom.description }}
+                    {{ room.description }}
                   </div>
                 </div>
               </div>
@@ -341,11 +343,15 @@
 
             <div class="detail-section">
               <h5>Pricing</h5>
-              <div class="price-item">
-                <span class="label">Room Price:</span>
-                <span class="value"
-                  >${{ selectedRoom?.pricePerNight }}/night</span
+              <div
+                v-for="(room, index) in selectedRooms"
+                :key="room.id"
+                class="price-item"
+              >
+                <span class="label"
+                  >Room {{ index + 1 }} (#{{ room.roomNumber }}):</span
                 >
+                <span class="value">${{ room.pricePerNight }}/night</span>
               </div>
               <div class="price-item">
                 <span class="label">Subtotal:</span>

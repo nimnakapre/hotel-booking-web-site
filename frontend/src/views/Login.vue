@@ -20,13 +20,22 @@
 
         <div class="form-group">
           <label for="password">Password</label>
-          <input
-            id="password"
-            v-model="password"
-            type="password"
-            placeholder="Enter your password"
-            required
-          />
+          <div class="password-input">
+            <input
+              id="password"
+              v-model="password"
+              :type="showPassword ? 'text' : 'password'"
+              placeholder="Enter your password"
+              required
+            />
+            <button
+              type="button"
+              @click="togglePassword"
+              class="password-toggle"
+            >
+              {{ showPassword ? "👁️" : "👁️‍🗨️" }}
+            </button>
+          </div>
         </div>
 
         <button
@@ -67,6 +76,11 @@ const username = ref("");
 const password = ref("");
 const error = ref("");
 const isLoading = ref(false);
+const showPassword = ref(false);
+
+function togglePassword() {
+  showPassword.value = !showPassword.value;
+}
 
 async function onSubmit() {
   error.value = "";

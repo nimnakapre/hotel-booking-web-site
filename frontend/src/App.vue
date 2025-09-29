@@ -1,39 +1,42 @@
 <template>
-  <header class="main-header">
-    <div class="container header-content">
-      <div class="brand-logo">
-        <div class="logo-icon">🏨</div>
-        <div class="brand-text">
-          <h1 class="brand-name">Serenity</h1>
-          <span class="brand-tagline">Hotel & Resort</span>
+  <div class="app">
+    <header class="main-header">
+      <div class="container header-content">
+        <div class="brand-logo">
+          <div class="logo-icon">🏨</div>
+          <div class="brand-text">
+            <h1 class="brand-name">Serenity</h1>
+            <span class="brand-tagline">Hotel & Resort</span>
+          </div>
         </div>
+        <nav class="main-nav">
+          <RouterLink to="/" class="nav-link" v-if="isAuthenticated"
+            >Dashboard</RouterLink
+          >
+          <RouterLink to="/login" class="nav-link" v-if="!isAuthenticated"
+            >Login</RouterLink
+          >
+          <button v-if="isAuthenticated" @click="logout" class="logout-btn">
+            Logout
+          </button>
+        </nav>
       </div>
-      <nav class="main-nav">
-        <RouterLink to="/" class="nav-link" v-if="isAuthenticated"
-          >Dashboard</RouterLink
-        >
-        <RouterLink to="/login" class="nav-link" v-if="!isAuthenticated"
-          >Login</RouterLink
-        >
-        <button v-if="isAuthenticated" @click="logout" class="logout-btn">
-          Logout
-        </button>
-      </nav>
-    </div>
-  </header>
-  <main class="container">
-    <RouterView />
-  </main>
+    </header>
+    <main class="container">
+      <RouterView />
+    </main>
+  </div>
 </template>
 
 <script setup lang="ts">
 import { useAuthStore } from "./stores/auth";
 import { storeToRefs } from "pinia";
-import { RouterLink, RouterView } from "vue-router";
+import { RouterLink, RouterView, useRouter } from "vue-router";
 
 const auth = useAuthStore();
+const router = useRouter();
 const { isAuthenticated } = storeToRefs(auth);
-const logout = () => auth.logout();
+const logout = () => auth.logout(router);
 </script>
 
 <style scoped>

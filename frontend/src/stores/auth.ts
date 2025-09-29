@@ -49,11 +49,17 @@ export const useAuthStore = defineStore("auth", {
     }) {
       await api.post("/auth/signup", payload);
     },
-    logout() {
+    logout(router?: any) {
       this.token = null;
       this.user = null;
       localStorage.removeItem("token");
       localStorage.removeItem("user");
+      // Redirect to login page after logout
+      if (router) {
+        router.push("/login");
+      } else {
+        window.location.href = "/login";
+      }
     },
   },
 });
