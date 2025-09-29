@@ -206,7 +206,7 @@
 
               <div class="summary-rooms" v-if="selectedRooms.length > 0">
                 <div
-                  v-for="(room, index) in selectedRooms"
+                  v-for="room in selectedRooms"
                   :key="room.id"
                   class="summary-room"
                 >
@@ -321,7 +321,7 @@
             <div class="detail-section" v-if="selectedRooms.length > 0">
               <h5>Room Details</h5>
               <div
-                v-for="(room, index) in selectedRooms"
+                v-for="room in selectedRooms"
                 :key="room.id"
                 class="room-confirmation"
               >
