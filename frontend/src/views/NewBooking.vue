@@ -90,8 +90,8 @@
           >
             <div class="room-image-container">
               <img
-                v-if="room.imageName"
-                :src="`/src/assets/room_img/${room.imageName}`"
+                v-if="getRoomImageUrl(room.imageName)"
+                :src="getRoomImageSrc(room.imageName)"
                 :alt="`${room.roomType} room`"
                 class="room-image"
               />
@@ -212,8 +212,8 @@
                 >
                   <div class="room-image-summary">
                     <img
-                      v-if="room.imageName"
-                      :src="`/src/assets/room_img/${room.imageName}`"
+                      v-if="getRoomImageUrl(room.imageName)"
+                      :src="getRoomImageSrc(room.imageName)"
                       :alt="`${room.roomType} room`"
                       class="summary-room-image"
                     />
@@ -326,8 +326,8 @@
                 class="room-confirmation"
               >
                 <img
-                  v-if="room.imageName"
-                  :src="`/src/assets/room_img/${room.imageName}`"
+                  v-if="getRoomImageUrl(room.imageName)"
+                  :src="getRoomImageSrc(room.imageName)"
                   :alt="`${room.roomType} room`"
                   class="confirmation-room-image"
                 />
@@ -384,6 +384,7 @@ import { onMounted, ref, computed } from "vue";
 import api from "../utils/api";
 import { useRoute, useRouter } from "vue-router";
 import { useAuthStore } from "../stores/auth";
+import { getRoomImageUrl, getRoomImageSrc } from "../utils/imageLoader";
 
 const route = useRoute();
 const router = useRouter();

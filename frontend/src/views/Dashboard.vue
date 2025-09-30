@@ -163,8 +163,8 @@
             <div class="room-detail-card">
               <div class="room-image-container">
                 <img
-                  v-if="selectedBooking.room.imageName"
-                  :src="`/src/assets/room_img/${selectedBooking.room.imageName}`"
+                  v-if="getRoomImageUrl(selectedBooking.room.imageName)"
+                  :src="getRoomImageSrc(selectedBooking.room.imageName)"
                   :alt="`${selectedBooking.room.roomType} room`"
                   class="room-detail-image"
                 />
@@ -325,6 +325,7 @@
 import { onMounted, ref } from "vue";
 import api from "../utils/api";
 import { RouterLink } from "vue-router";
+import { getRoomImageUrl, getRoomImageSrc } from "../utils/imageLoader";
 
 const upcoming = ref<any[]>([]);
 const past = ref<any[]>([]);
