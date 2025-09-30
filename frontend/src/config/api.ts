@@ -1,7 +1,7 @@
 // API Configuration
 export const API_CONFIG = {
   // Production API URL
-  PRODUCTION_URL: "https://13.51.125.69/api",
+  PRODUCTION_URL: "https://hoteldna.duckdns.org/api",
   // Development API URL
   DEVELOPMENT_URL: "http://localhost:8080/api",
   // Get the appropriate URL based on environment
