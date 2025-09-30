@@ -16,16 +16,10 @@ public class CorsConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOriginPatterns(
-                    "http://localhost:3000",
-                    "http://localhost:3001", 
-                    "https://*.netlify.app",
-                    "https://*.vercel.app",
-                    "https://*.render.com"
-                )
-                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH")
+                .allowedOriginPatterns("*")
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH", "HEAD")
                 .allowedHeaders("*")
-                .allowCredentials(true)
+                .allowCredentials(false)
                 .maxAge(3600);
     }
 
@@ -33,14 +27,8 @@ public class CorsConfig implements WebMvcConfigurer {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         
-        // Allow specific origins for production
-        configuration.setAllowedOriginPatterns(Arrays.asList(
-            "http://localhost:3000",
-            "http://localhost:3001",
-            "https://*.netlify.app",
-            "https://*.vercel.app", 
-            "https://*.render.com"
-        ));
+        // Allow all origins for development
+        configuration.setAllowedOriginPatterns(Arrays.asList("*"));
         
         // Allow all HTTP methods
         configuration.setAllowedMethods(Arrays.asList(
@@ -51,7 +39,7 @@ public class CorsConfig implements WebMvcConfigurer {
         configuration.setAllowedHeaders(Arrays.asList("*"));
         
         // Allow credentials (cookies, authorization headers)
-        configuration.setAllowCredentials(true);
+        configuration.setAllowCredentials(false);
         
         // Cache preflight response for 1 hour
         configuration.setMaxAge(3600L);
@@ -69,6 +57,8 @@ public class CorsConfig implements WebMvcConfigurer {
         
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
+        
+        System.out.println("CORS Configuration loaded: " + configuration.getAllowedOriginPatterns());
         return source;
     }
 }
