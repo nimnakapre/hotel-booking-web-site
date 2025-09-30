@@ -164,7 +164,7 @@
               <div class="room-image-container">
                 <img
                   v-if="selectedBooking.room.imageName"
-                  :src="`/room_img/${selectedBooking.room.imageName}`"
+                  :src="`/src/room_img/${selectedBooking.room.imageName}`"
                   :alt="`${selectedBooking.room.roomType} room`"
                   class="room-detail-image"
                 />

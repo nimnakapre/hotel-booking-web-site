@@ -3,7 +3,7 @@ export const API_CONFIG = {
   // Production API URL
   PRODUCTION_URL: "https://hoteldna.duckdns.org/api",
   // Development API URL
-  DEVELOPMENT_URL: "http://localhost:8080/api",
+  DEVELOPMENT_URL: "https://hoteldna.duckdns.org/api",
   // Get the appropriate URL based on environment
   getBaseURL: () => {
     // Check if we're running on localhost (development)

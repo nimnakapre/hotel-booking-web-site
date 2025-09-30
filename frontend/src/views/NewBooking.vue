@@ -91,7 +91,7 @@
             <div class="room-image-container">
               <img
                 v-if="room.imageName"
-                :src="`/room_img/${room.imageName}`"
+                :src="`/src/room_img/${room.imageName}`"
                 :alt="`${room.roomType} room`"
                 class="room-image"
               />
@@ -213,7 +213,7 @@
                   <div class="room-image-summary">
                     <img
                       v-if="room.imageName"
-                      :src="`/room_img/${room.imageName}`"
+                      :src="`/src/room_img/${room.imageName}`"
                       :alt="`${room.roomType} room`"
                       class="summary-room-image"
                     />
@@ -327,7 +327,7 @@
               >
                 <img
                   v-if="room.imageName"
-                  :src="`/room_img/${room.imageName}`"
+                  :src="`/src/room_img/${room.imageName}`"
                   :alt="`${room.roomType} room`"
                   class="confirmation-room-image"
                 />
